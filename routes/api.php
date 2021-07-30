@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\widget;
 use App\Http\Controllers\WidgetController;
 use App\Http\Controllers\MethodsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NewsController;
 
 
 /*
@@ -27,18 +27,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::resource('methods',MethodsController::class);
 
 //Public Route
+
     //Auth Routes
 Route::post('/register', [AuthController::class,'register']);
-Route::post('/login', [AuthController::class,'login']);
+Route::post('/login'    , [AuthController::class,'login']);
 
     //Widgets Routes
 Route::get('/widgets', [WidgetController::class,'index']);
 Route::get('/widget/{id}', [WidgetController::class,'show']);
 Route::get('/widget/search/{name}', [WidgetController::class,'search']);
+
     //Methods Routes
-Route::get('methods', [MethodsController::class,'index']);
+Route::get('/methods', [MethodsController::class,'index']);
 Route::get('/method/{id}', [MethodsController::class,'show']);
 Route::get('/method/search/{name}', [MethodsController::class,'search']); 
+
+    //News Routes
+    Route::get('/news', [NewsController::class,'index']);
+    Route::get('/news/{id}', [NewsController::class,'show']);
+    Route::get('/news/search/{name}', [NewsController::class,'search']); 
 
 //Protected Route
 Route::group(['middleware'=>['auth:sanctum']], function () {
@@ -55,6 +62,11 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/method', [MethodsController::class,'store']);
     Route::put('/method/{id}', [MethodsController::class,'update']);
     Route::delete('/method/{id}', [MethodsController::class,'destroy']);
+
+    //News Routes
+    Route::post('/news', [NewsController::class,'store']);
+    Route::put('/news/{id}', [NewsController::class,'update']);
+    Route::delete('/news/{id}', [NewsController::class,'destroy']);
 
 
 });
