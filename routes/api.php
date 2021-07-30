@@ -6,6 +6,7 @@ use App\Http\Controllers\WidgetController;
 use App\Http\Controllers\MethodsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\QuestionController;
 
 
 /*
@@ -43,9 +44,14 @@ Route::get('/method/{id}', [MethodsController::class,'show']);
 Route::get('/method/search/{name}', [MethodsController::class,'search']); 
 
     //News Routes
-    Route::get('/news', [NewsController::class,'index']);
-    Route::get('/news/{id}', [NewsController::class,'show']);
-    Route::get('/news/search/{name}', [NewsController::class,'search']); 
+Route::get('/news', [NewsController::class,'index']);
+Route::get('/news/{id}', [NewsController::class,'show']);
+Route::get('/news/search/{name}', [NewsController::class,'search']); 
+
+//Questions Routes
+Route::get('/questions', [QuestionController::class,'index']);
+Route::get('/question/{id}', [QuestionController::class,'show']);
+Route::get('/question/search/{name}', [QuestionController::class,'search']); 
 
 //Protected Route
 Route::group(['middleware'=>['auth:sanctum']], function () {
@@ -67,6 +73,11 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/news', [NewsController::class,'store']);
     Route::put('/news/{id}', [NewsController::class,'update']);
     Route::delete('/news/{id}', [NewsController::class,'destroy']);
+
+    //Questions Routes
+    Route::post('/question', [QuestionController::class,'store']);
+    Route::put('/question/{id}', [QuestionController::class,'update']);
+    Route::delete('/question/{id}', [QuestionController::class,'destroy']);
 
 
 });
